@@ -1,0 +1,15 @@
+const request = require('supertest');
+const app = require('../src/app');
+
+describe('GET /health', () => {
+  it('returns the service status payload', async () => {
+    const response = await request(app).get('/health');
+
+    expect(response.status).toBe(200);
+    expect(response.body).toMatchObject({
+      status: 'ok',
+      version: '1.0.0',
+    });
+    expect(response.body.timestamp).toBeDefined();
+  });
+});
